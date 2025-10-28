@@ -1,7 +1,7 @@
 import type { PlaylistData } from "@/features/playlists/api/playlistsApi.types"
 import { useDeletePlaylistMutation } from "@/features/playlists/api/playlistsApi"
-import defaultCover from "@/assets/images/default-playlist-cover.png"
-import s from "./PlaylistItem.module.css"
+import { PlaylistCover } from "@/features/playlists/ui/PlaylistItem/PlaylistCover/PlaylistCover"
+import { PlaylistDescription } from "@/features/playlists/ui/PlaylistItem/PlaylistDescription/PlaylistDescription"
 
 type Props = {
   playlist: PlaylistData
@@ -17,10 +17,8 @@ export const PlaylistItem = ({ playlist, onEditPlaylist }: Props) => {
 
   return (
     <div>
-      <img src={defaultCover} alt={"cover"} width={"240px"} className={s.cover} />
-      <div>title: {playlist.attributes.title}</div>
-      <div>description: {playlist.attributes.description}</div>
-      <div>userName: {playlist.attributes.user.name}</div>
+      <PlaylistCover playlistId={playlist.id} images={playlist.attributes.images} />
+      <PlaylistDescription playlistAttributes={playlist.attributes} />
       <button onClick={() => handleDeletePlaylist(playlist.id)}>delete</button>
       <button onClick={() => onEditPlaylist(playlist)}>update</button>
     </div>
