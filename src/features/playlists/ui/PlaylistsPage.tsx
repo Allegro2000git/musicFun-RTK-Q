@@ -8,13 +8,13 @@ import { PlaylistsList } from "@/features/playlists/ui/PlaylistsList/PlaylistsLi
 
 export const PlaylistsPage = () => {
   const [search, setSearch] = useState("")
-  const debouncrSearch = useDebounceValue(search)
+  const debounceSearch = useDebounceValue(search)
 
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(2)
 
   const { data, isLoading } = useFetchPlaylistsQuery({
-    search: debouncrSearch,
+    search: debounceSearch,
     pageSize,
     pageNumber: currentPage,
   })
