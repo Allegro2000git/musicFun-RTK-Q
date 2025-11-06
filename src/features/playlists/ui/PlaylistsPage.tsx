@@ -19,8 +19,6 @@ export const PlaylistsPage = () => {
     pageNumber: currentPage,
   })
 
-  if (isLoading) return <h1>Loading...</h1>
-
   const changePageSizeHandler = (size: number) => {
     setPageSize(size)
     setCurrentPage(1)
@@ -31,10 +29,14 @@ export const PlaylistsPage = () => {
     setCurrentPage(1)
   }
 
+  if (isLoading) {
+    return <h2>Skeleton...</h2>
+  }
+
   return (
     <div className={s.container}>
       <h1>Playlists page</h1>
-      <CreatePlaylistForm />
+      <CreatePlaylistForm setPlaylistPage={setCurrentPage} />
       <input type="search" placeholder={"Search playlist by title"} onChange={(e) => searchPlaylistHandler(e)} />
       <PlaylistsList playLists={data?.data || []} isPlaylistsLoading={isLoading} />
       <Pagination
