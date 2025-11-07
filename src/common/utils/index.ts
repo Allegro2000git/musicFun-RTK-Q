@@ -1,4 +1,5 @@
 export { getPaginationPages } from "./getPaginationPages"
+export { truncateText } from "./truncateText"
 export { isErrorWithProperty } from "./isErrorWithProperty"
 export { isErrorWithDetailArray } from "./isErrorWithDetailArray"
 export { trimToMaxLength } from "./trimToMaxLength"

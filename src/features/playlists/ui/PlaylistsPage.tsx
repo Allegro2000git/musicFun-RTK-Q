@@ -33,16 +33,6 @@ export const PlaylistsPage = () => {
     return <h2>Skeleton...</h2>
   }
 
-  /*  if (error) {
-    if ("status" in error) {
-      const errMsg = "error" in error ? error.error : (error.data as { error: string }).error
-      toast(errMsg, { type: "error", theme: "colored" })
-    } else {
-      const errMsg = error.message || "some error occurred"
-      toast(errMsg, { type: "error", theme: "colored" })
-    }
-  }*/
-
   return (
     <div className={s.container}>
       <h1>Playlists page</h1>

@@ -1,4 +1,5 @@
 import type { PlaylistAttributes } from "@/features/playlists/api/playlistsApi.types"
+import { truncateText } from "@/common/utils"
 
 type Props = {
   playlistAttributes: PlaylistAttributes
@@ -6,13 +7,8 @@ type Props = {
 export const PlaylistDescription = ({ playlistAttributes }: Props) => {
   return (
     <>
-      <div>
-        title:{" "}
-        {playlistAttributes.title.length > 20
-          ? playlistAttributes.title.slice(0, 20) + "..."
-          : playlistAttributes.title}
-      </div>
-      <div>description: {playlistAttributes.description}</div>
+      <div>title: {truncateText(playlistAttributes.title)}</div>
+      <div>description: {truncateText(playlistAttributes.description)}</div>
       <div>userName: {playlistAttributes.user.name}</div>
     </>
   )
