@@ -1,12 +1,8 @@
-export type MeResponse = {
-  userId: string
-  login: string
-}
+import z from "zod/v4"
+import { LoginResponseSchema, MeResponseSchema } from "@/features/auth/model/auth.schemas"
 
-export type LoginResponse = {
-  refreshToken: string
-  accessToken: string
-}
+export type MeResponse = z.infer<typeof MeResponseSchema>
+export type LoginResponse = z.infer<typeof LoginResponseSchema>
 
 export type LoginArgs = {
   code: string
