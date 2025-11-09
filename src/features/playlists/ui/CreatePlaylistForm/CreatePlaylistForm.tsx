@@ -2,11 +2,7 @@ import { type SubmitHandler, useForm } from "react-hook-form"
 import type { CreatePlaylistArgs } from "@/features/playlists/api/playlistsApi.types"
 import { useCreatePlaylistMutation } from "@/features/playlists/api/playlistsApi"
 
-type Props = {
-  setPlaylistPage: (page: number) => void
-}
-
-export const CreatePlaylistForm = ({ setPlaylistPage }: Props) => {
+export const CreatePlaylistForm = () => {
   const { register, handleSubmit, reset } = useForm<CreatePlaylistArgs>()
   const [createPlaylist] = useCreatePlaylistMutation()
 
@@ -14,7 +10,6 @@ export const CreatePlaylistForm = ({ setPlaylistPage }: Props) => {
     createPlaylist(data)
       .unwrap()
       .then(() => {
-        setPlaylistPage(1)
         reset()
       })
   }
