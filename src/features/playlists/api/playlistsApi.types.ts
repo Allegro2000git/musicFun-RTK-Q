@@ -6,7 +6,6 @@ import {
   playlistsGetResponseSchema,
 } from "@/features/playlists/model/playlists.schemas"
 import z from "zod/v4"
-import type { Images } from "@/common/types"
 
 export type PlaylistMeta = z.infer<typeof playlistMetaSchema>
 export type PlaylistAttributes = z.infer<typeof playlistAttributesSchema>
@@ -44,14 +43,5 @@ export type PlaylistUpdatedEvent = {
   type: "tracks.playlist-updated"
   payload: {
     data: PlaylistData
-  }
-}
-
-export type PlaylistImageProcessedEvent = {
-  payload: {
-    data: {
-      id: string
-      images: Images
-    }
   }
 }

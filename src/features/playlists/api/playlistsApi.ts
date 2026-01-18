@@ -3,7 +3,6 @@ import type {
   FetchPlaylistsArgs,
   PlaylistCreatedEvent,
   PlaylistData,
-  PlaylistImageProcessedEvent,
   PlaylistsResponse,
   PlaylistUpdatedEvent,
   UpdatePlaylistArgs,
@@ -28,10 +27,17 @@ export const playlistsApi = baseApi.injectEndpoints({
 
         const unsubscribes = [
           subscribeToEvent<PlaylistCreatedEvent>(SOCKET_EVENTS.PLAYLIST_CREATED, (message) => {
-            const newPlaylist = message.payload.data
+            const currentPlaylist = message.payload.data
+
             updateCachedData((state) => {
+              const index = state.data.findIndex((playlist) => playlist.id === currentPlaylist.id)
+              if (index !== -1) {
+                state.data[index].attributes.images = currentPlaylist.attributes.images
+                return
+              }
+
               state.data.pop()
-              state.data.unshift(newPlaylist)
+              state.data.unshift(currentPlaylist)
               state.meta.totalCount = state.meta.totalCount + 1
               state.meta.pagesCount = Math.ceil(state.meta.totalCount / state.meta.pageSize)
             })
@@ -42,15 +48,6 @@ export const playlistsApi = baseApi.injectEndpoints({
               const index = state.data.findIndex((playlist) => playlist.id === updatedPlaylist.id)
               if (index !== -1) {
                 state.data[index] = { ...state.data[index], ...updatedPlaylist }
-              }
-            })
-          }),
-          subscribeToEvent<PlaylistImageProcessedEvent>(SOCKET_EVENTS.PLAYLIST_IMAGE_PROCESSED, (message) => {
-            const playlistImages = message.payload.data
-            updateCachedData((state) => {
-              const index = state.data.findIndex((playlist) => playlist.id === playlistImages.id)
-              if (index !== -1) {
-                state.data[index].attributes.images = playlistImages.images
               }
             })
           }),

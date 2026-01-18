@@ -4,6 +4,7 @@ import { useDeletePlaylistCoverMutation, useUploadPlaylistCoverMutation } from "
 import defaultCover from "@/assets/images/default-playlist-cover.png"
 import type { Images } from "@/common/types"
 import { errorToast } from "@/common/utils"
+import { useGetMeQuery } from "@/features/auth/api/authApi"
 
 type Props = {
   playlistId: string
@@ -13,6 +14,7 @@ type Props = {
 export const PlaylistCover = ({ playlistId, images }: Props) => {
   const [uploadPlaylistCover] = useUploadPlaylistCoverMutation()
   const [deletePlaylistCover] = useDeletePlaylistCoverMutation()
+  const { data } = useGetMeQuery()
 
   const originalCover = images.main.find((img) => img.type === "original")
   const src = originalCover ? originalCover.url : defaultCover
@@ -43,8 +45,8 @@ export const PlaylistCover = ({ playlistId, images }: Props) => {
   return (
     <>
       <img src={src} alt={"cover"} width={"240px"} className={s.cover} />
-      <input type={"file"} accept={"image/jpeg,image/png,image/gif"} onChange={handleUploadCover} />
-      {originalCover && <button onClick={handleDeleteCover}>deleteCover</button>}
+      {data && <input type={"file"} accept={"image/jpeg,image/png,image/gif"} onChange={handleUploadCover} />}
+      {data && originalCover && <button onClick={handleDeleteCover}>deleteCover</button>}
     </>
   )
 }
